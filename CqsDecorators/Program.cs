@@ -14,6 +14,8 @@ namespace CqsDecorators
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddScoped(typeof(IQueryHandler<,>), typeof(MainHandler<,>));
+
+                    // Register decorators
                     services.AddDecorators((serviceProvider) =>
                     {
                         var decoratorFactory = new DecoratorFactory(serviceProvider);
@@ -25,6 +27,7 @@ namespace CqsDecorators
                 .UseConsoleLifetime()
                 .Build();
 
+            // Test
             var decoratorFactory = host.Services.GetRequiredService<IDecoratorFactory>();
             var decorator = decoratorFactory.BuildDecoratorsChain<IQueryHandler<DataQuery, string>>();
             var result = await decorator.HanldeAsync(new DataQuery { Page = 1 });

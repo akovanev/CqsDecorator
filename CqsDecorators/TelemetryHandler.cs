@@ -13,6 +13,7 @@ namespace CqsDecorators
 
         public Task<DataResult<TResult>> HanldeAsync(TQuery query)
         {
+            // Some action here
             return handler.HanldeAsync(query);
         }
     }

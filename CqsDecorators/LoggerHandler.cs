@@ -18,7 +18,9 @@ namespace CqsDecorators
         public async Task<DataResult<TResult>> HanldeAsync(TQuery query)
         {
             var result = await handler.HanldeAsync(query);
+
             logger.LogInformation(result.Data.ToString());
+
             return result;
         }
     }

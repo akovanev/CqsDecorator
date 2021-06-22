@@ -10,7 +10,9 @@ namespace CqsDecorators
             this IServiceCollection services,
             Func<IServiceProvider, IDecoratorFactory> implementationFactory)
         {
+            // Register as singleton
             services.AddSingleton(svc => implementationFactory(svc));
+
             return services;
         }
     }

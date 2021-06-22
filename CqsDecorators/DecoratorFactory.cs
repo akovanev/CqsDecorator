@@ -55,17 +55,14 @@ namespace CqsDecorators
         private object[] BuildConstructorParameters<T>(T service, Type decorator)
         {
             var result = new List<object>();
+
+            // Assuming only one constructor is allowed
             foreach (var parameter in decorator.GetConstructors().Single().GetParameters())
             {
                 var parameterType = parameter.ParameterType;
-                if(parameterType.IsAssignableFrom(service.GetType()))
-                {
-                    result.Add(service);
-                }
-                else
-                {
-                    result.Add(serviceProvider.GetRequiredService(parameterType));
-                }    
+                result.Add(parameterType.IsAssignableFrom(service.GetType())
+                    ? service
+                    : serviceProvider.GetRequiredService(parameterType));
             }
 
             return result.ToArray();
